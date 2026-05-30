@@ -82,6 +82,13 @@ export const login = async (credentials: any) => {
       );
     }
 
+    if (user.isGoogle) {
+      return NextResponse.json(
+        { success: false, message: "This account is registered via Google. Please sign in using Google." },
+        { status: 400 }
+      );
+    }
+
     if (!user.isVerified) {
 
       return NextResponse.json(
@@ -173,6 +180,13 @@ export const forgotpassword = async (email: string) => {
       return NextResponse.json(
         { success: false, message: "User not found" },
         { status: 404 }
+      );
+    }
+
+    if (user.isGoogle) {
+      return NextResponse.json(
+        { success: false, message: "This account is registered via Google. Password recovery is not supported." },
+        { status: 400 }
       );
     }
 

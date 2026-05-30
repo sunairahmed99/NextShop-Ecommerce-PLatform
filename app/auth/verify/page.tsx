@@ -31,8 +31,8 @@ export default function VerifyPage() {
   };
 
   return (
-    <div className="h-[80vh] flex items-center justify-center px-4 font-sans">
-      <div className="w-full max-w-sm">
+    <div className="h-[80vh] flex items-center justify-center px-4 font-sans w-full">
+      <div className="w-full max-w-md mx-auto" style={{ maxWidth: "420px" }}>
         <div className="bg-black border border-zinc-800 p-8 rounded-2xl shadow-2xl text-center">
           <div className="mb-6">
             <div className="w-12 h-12 bg-blue-600/10 rounded-full flex items-center justify-center mx-auto mb-4">

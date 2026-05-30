@@ -59,8 +59,8 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center px-4 py-8">
-      <div className="w-full max-w-md">
+    <div className="min-h-[85vh] flex items-center justify-center px-4 py-8 w-full">
+      <div className="w-full max-w-md mx-auto" style={{ maxWidth: "480px" }}>
         <div className="bg-black border border-gray-800 p-6 md:p-8 rounded-2xl shadow-xl">
           <div className="text-center mb-6">
             <h1 className="text-2xl font-bold tracking-tight text-white mb-1">Create Account</h1>

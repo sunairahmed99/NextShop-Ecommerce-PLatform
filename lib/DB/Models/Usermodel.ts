@@ -13,6 +13,7 @@ export interface IUser extends Document {
   imagekey?: string;
 
   isVerified: boolean;
+  isGoogle: boolean;
 
   verifyCode?: string;
   verifyCodeExpire?: Date;
@@ -70,6 +71,11 @@ const UserSchema = new Schema<IUser>(
     },
 
     isVerified: {
+      type: Boolean,
+      default: false,
+    },
+
+    isGoogle: {
       type: Boolean,
       default: false,
     },
