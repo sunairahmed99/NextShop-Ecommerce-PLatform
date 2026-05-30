@@ -54,11 +54,11 @@ export async function GET(req: NextRequest) {
 
     await connectDB();
 
-    // 3. Find or create user in DB
-    let user = await UserModel.findOne({ email: email.toLowerCase().trim() });
+    // 3. Find or create Google-specific user in DB
+    let user = await UserModel.findOne({ email: email.toLowerCase().trim(), isGoogle: true });
 
     if (user) {
-      // Update imageurl if not set, verify status, and set isGoogle to true
+      // Update imageurl if not set, and verify status
       let updated = false;
       if (!user.imageurl && picture) {
         user.imageurl = picture;
@@ -66,10 +66,6 @@ export async function GET(req: NextRequest) {
       }
       if (!user.isVerified) {
         user.isVerified = true;
-        updated = true;
-      }
-      if (!user.isGoogle) {
-        user.isGoogle = true;
         updated = true;
       }
       if (updated) {

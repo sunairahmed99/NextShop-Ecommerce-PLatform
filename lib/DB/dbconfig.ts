@@ -13,6 +13,13 @@ export async function connectDB() {
     }
     await mongoose.connect(MONGODB_URI);
 
+    // Drop old single unique email index if it exists, to allow compound uniqueness
+    try {
+      await mongoose.connection.db?.collection("users").dropIndex("email_1");
+    } catch (error) {
+      // Index might not exist or already dropped, ignore
+    }
+
   } catch (error) {
     // console.log("❌ MongoDB Error:", error);
     throw error;

@@ -11,7 +11,7 @@ export const register = async (userData: any, imageFile?: any) => {
     await connectDB();
     const { name, email, password, phone } = userData;
 
-    const existingUser = await UserModel.findOne({ email });
+    const existingUser = await UserModel.findOne({ email, isGoogle: false });
     if (existingUser) {
       if (existingUser.isVerified) {
         return NextResponse.json(
@@ -44,6 +44,7 @@ export const register = async (userData: any, imageFile?: any) => {
       verifyCode,
       verifyCodeExpire,
       isVerified: false,
+      isGoogle: false,
       imageurl,
       imagekey,
     });
@@ -73,19 +74,12 @@ export const login = async (credentials: any) => {
     const password = credentials.password;
 
 
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email, isGoogle: false });
     if (!user) {
 
       return NextResponse.json(
         { success: false, message: "Invalid credentials" },
         { status: 401 }
-      );
-    }
-
-    if (user.isGoogle) {
-      return NextResponse.json(
-        { success: false, message: "This account is registered via Google. Please sign in using Google." },
-        { status: 400 }
       );
     }
 
@@ -174,19 +168,12 @@ export const userverify = async (code: string) => {
 export const forgotpassword = async (email: string) => {
   try {
     await connectDB();
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email, isGoogle: false });
 
     if (!user) {
       return NextResponse.json(
         { success: false, message: "User not found" },
         { status: 404 }
-      );
-    }
-
-    if (user.isGoogle) {
-      return NextResponse.json(
-        { success: false, message: "This account is registered via Google. Password recovery is not supported." },
-        { status: 400 }
       );
     }
 

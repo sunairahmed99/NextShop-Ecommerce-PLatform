@@ -39,7 +39,6 @@ const UserSchema = new Schema<IUser>(
     email: {
       type: String,
       required: [true, "Email is required"],
-      unique: true,
       lowercase: true,
       trim: true,
     },
@@ -112,6 +111,8 @@ const UserSchema = new Schema<IUser>(
     timestamps: true,
   }
 );
+
+UserSchema.index({ email: 1, isGoogle: 1 }, { unique: true });
 
 const UserModel =
   models.User || model<IUser>("User", UserSchema);
