@@ -1,0 +1,384 @@
+.container {
+  min-height: 100vh;
+  background-color: #0f1016;
+  color: #fff;
+  padding: 10px 5% 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.contentWrapper {
+  max-width: 1200px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.formSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.section {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #3b82f6;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fullWidth {
+  grid-column: span 2;
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #9ca3af;
+}
+
+.input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 15px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Order Summary */
+.summaryContainer {
+  position: sticky;
+  top: 80px;
+  height: fit-content;
+  align-self: start;
+}
+
+.summaryTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.cartItems {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
+  max-height: 450px;
+  overflow-y: auto;
+  padding-right: 12px;
+}
+
+.cartItems::-webkit-scrollbar {
+  width: 5px;
+}
+
+.cartItems::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
+
+.cartItems::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 10px;
+}
+
+.cartItems::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.5);
+}
+
+.cartItem {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: #16171d;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cartItem:hover {
+  background: #1c1d25;
+  border-color: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.1);
+}
+
+.itemImg {
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #0f1016;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.itemInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.itemName {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.itemMeta {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.itemPrice {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #3b82f6;
+  white-space: nowrap;
+}
+
+.couponRow {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.couponInput {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 15px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.applyBtn {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #3b82f6;
+  padding: 0 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.applyBtn:hover {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.05);
+  margin: 20px 0;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.totalLabel {
+  color: #9ca3af;
+  font-size: 0.95rem;
+}
+
+.totalValue {
+  color: #fff;
+  font-weight: 600;
+}
+
+.grandTotal {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.placeOrderBtn {
+  width: 100%;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: #fff;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 20px;
+}
+
+.placeOrderBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+}
+
+@media (max-width: 900px) {
+  .container {
+    padding: 10px 4% 40px;
+  }
+  .contentWrapper {
+    grid-template-columns: 1fr;
+  }
+  
+  .summaryContainer {
+    position: static;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .fullWidth {
+    grid-column: span 1;
+  }
+}
+
+/* Compact Payment Methods in Sidebar */
+.miniPaymentSection {
+  margin: 15px 0;
+}
+
+.miniSectionTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #9ca3af;
+  margin-bottom: 15px;
+}
+
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+  color: #d1d5db;
+  border: 1px solid transparent;
+}
+
+.radioLabel:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+}
+
+.radioActive {
+  background: rgba(59, 130, 246, 0.05);
+  border-color: rgba(59, 130, 246, 0.2);
+  color: #fff;
+}
+
+.hiddenRadio {
+  display: none;
+}
+
+.customRadio {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #4b5563;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.radioActive .customRadio {
+  border-color: #3b82f6;
+}
+
+.customRadio::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: #3b82f6;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.2s;
+}
+
+.radioActive .customRadio::after {
+  transform: scale(1);
+}
+
+/* Stripe Card Element */
+.stripeContainer {
+  margin-top: 15px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.stripeLabel {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.cardErrorText {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 8px;
+  font-weight: 500;
+}

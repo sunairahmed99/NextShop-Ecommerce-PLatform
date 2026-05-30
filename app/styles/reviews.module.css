@@ -1,0 +1,242 @@
+.reviewSection {
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: 'Outfit', sans-serif;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 25px;
+  letter-spacing: -0.01em;
+  background: linear-gradient(90deg, #fff, #9ca3af);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.statsContainer {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.statsContainer::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.averageRating {
+  text-align: center;
+  z-index: 1;
+}
+
+.ratingNumber {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+
+.ratingStars {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+  justify-content: center;
+}
+
+.star {
+  color: #374151;
+  font-size: 1rem;
+}
+
+.starActive {
+  color: #fbbf24;
+}
+
+.totalReviews {
+  color: #6b7280;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.statsInfo {
+  z-index: 1;
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.reviewForm {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 25px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 30px;
+}
+
+.formTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.ratingInput {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.starBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1.4rem;
+  color: #374151;
+  transition: all 0.2s;
+}
+
+.starBtn:hover {
+  transform: scale(1.1);
+}
+
+.starActive {
+  color: #fbbf24;
+}
+
+.textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 15px;
+  color: #fff;
+  font-family: inherit;
+  min-height: 100px;
+  resize: vertical;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.submitBtn {
+  background: linear-gradient(135deg, #ec4899, #3b82f6);
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.3s;
+}
+
+.submitBtn:hover {
+  transform: translateY(-2px);
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+}
+
+.reviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.reviewItem {
+  background: rgba(255, 255, 255, 0.01);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.userInfo {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.userAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #fff;
+  font-size: 0.9rem;
+  overflow: hidden;
+}
+
+.userName {
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.reviewDate {
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.reviewComment {
+  color: #9ca3af;
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
+.noReviews {
+  text-align: center;
+  padding: 40px;
+  color: #6b7280;
+  background: rgba(255, 255, 255, 0.01);
+  border-radius: 20px;
+  border: 1px dashed rgba(255, 255, 255, 0.05);
+  font-size: 0.9rem;
+}
+
+.loginPrompt {
+  text-align: center;
+  padding: 25px;
+  background: rgba(59, 130, 246, 0.02);
+  border-radius: 16px;
+  border: 1px solid rgba(59, 130, 246, 0.05);
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.loginLink {
+  color: #3b82f6;
+  font-weight: 700;
+  text-decoration: none;
+}

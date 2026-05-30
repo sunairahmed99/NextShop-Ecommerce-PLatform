@@ -1,0 +1,241 @@
+/* Hero Banner */
+.heroBanner {
+  width: 100%;
+  min-height: 320px;
+  background: linear-gradient(135deg, #0f1016 0%, #1a1b2e 50%, #0f1016 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15,16,22,0.55) 0%, rgba(15,16,22,0.85) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px 40px;
+}
+
+.heroContent {
+  text-align: center;
+}
+
+.heroSub {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #3b82f6;
+  margin-bottom: 12px;
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 12px;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.heroCount {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 20px;
+}
+
+.heroBreadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.breadLink {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.breadLink:hover {
+  color: #3b82f6;
+}
+
+.breadSep {
+  color: rgba(255,255,255,0.25);
+}
+
+.breadCurrent {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+/* Controls Bar */
+.controlsBar {
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 16px 5%;
+  position: sticky;
+  top: 65px;
+  z-index: 40;
+  backdrop-filter: blur(10px);
+}
+
+.controlsInner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Search */
+.searchWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 10px 14px;
+  flex: 1;
+  min-width: 200px;
+  color: rgba(255,255,255,0.4);
+  transition: border-color 0.2s;
+}
+
+.searchWrap:focus-within {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.searchInput {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+.searchInput::placeholder {
+  color: rgba(255,255,255,0.3);
+}
+
+/* Price */
+.priceWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 180px;
+}
+
+.priceLabel {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+}
+
+.rangeInput {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: rgba(59,130,246,0.2);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.rangeInput::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.rangeInput::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Sort */
+.sortWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sortLabel {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  white-space: nowrap;
+}
+
+.sortSelect {
+  background: #0f1016;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.sortSelect:focus {
+  border-color: #3b82f6;
+}
+
+/* Count Badge */
+.countBadge {
+  background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.2);
+  color: #3b82f6;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+/* Grid Wrapper */
+.gridWrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 5% 60px;
+}
+
+@media (max-width: 768px) {
+  .heroBanner {
+    min-height: 240px;
+  }
+
+  .controlsInner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .countBadge {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .sortWrap {
+    justify-content: space-between;
+  }
+}
