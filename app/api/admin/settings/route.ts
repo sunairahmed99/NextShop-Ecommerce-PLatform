@@ -1,7 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { WebsiteSettingsService } from "@/lib/Services/WebsiteSettingsService";
+import { AdminAuthrequire } from "@/lib/Services/Auth/AdminAuthrequire";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const auth = AdminAuthrequire(req);
+  if (!auth.success) return auth.response!;
+
   try {
     const settings = await WebsiteSettingsService.getSettings();
     return NextResponse.json(settings);
@@ -11,6 +15,9 @@ export async function GET() {
 }
 
 export async function PUT(req: NextRequest) {
+  const auth = AdminAuthrequire(req);
+  if (!auth.success) return auth.response!;
+
   try {
     const data = await req.json();
     const settings = await WebsiteSettingsService.updateSettings(data);

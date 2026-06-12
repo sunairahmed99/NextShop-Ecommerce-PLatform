@@ -1,7 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { ContactAdminService } from "@/lib/Services/admin/ContactAdminService";
+import { AdminAuthrequire } from "@/lib/Services/Auth/AdminAuthrequire";
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const auth = AdminAuthrequire(req);
+  if (!auth.success) return auth.response!;
+
   try {
     const { id } = await params;
     await ContactAdminService.deleteContact(id);

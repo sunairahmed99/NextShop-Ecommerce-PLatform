@@ -1,11 +1,12 @@
-import { CouponService } from "@/lib/Services/admin/CouponService";
+﻿import { CouponService } from "@/lib/Services/admin/CouponService";
 import { NextRequest, NextResponse } from "next/server";
+import { AdminAuthrequire } from "@/lib/Services/Auth/AdminAuthrequire";
 
 // GET single coupon by ID
-export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const auth = AdminAuthrequire(req);
+  if (!auth.success) return auth.response!;
+
   try {
     const { id } = await params;
     const coupon = await CouponService.getCouponById(id);
@@ -16,10 +17,10 @@ export async function GET(
 }
 
 // PUT update coupon
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const auth = AdminAuthrequire(req);
+  if (!auth.success) return auth.response!;
+
   try {
     const { id } = await params;
     const body = await req.json();
@@ -31,10 +32,10 @@ export async function PUT(
 }
 
 // DELETE coupon
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const auth = AdminAuthrequire(req);
+  if (!auth.success) return auth.response!;
+
   try {
     const { id } = await params;
     await CouponService.deleteCoupon(id);

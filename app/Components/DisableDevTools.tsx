@@ -2,9 +2,11 @@
 
 import { useEffect } from "react";
 
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
+
 export default function DisableDevTools() {
   useEffect(() => {
-    // 1. Prevent Right-Click Context Menu
+    // 1. Prevent Right-Click Context Menu (inspect karne se rokta hai)
     const handleContextMenu = (e: MouseEvent) => {
       e.preventDefault();
     };
@@ -18,7 +20,7 @@ export default function DisableDevTools() {
         (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "i")) ||
         // Ctrl+Shift+J (Console)
         (e.ctrlKey && e.shiftKey && (e.key === "J" || e.key === "j")) ||
-        // Ctrl+Shift+C (Inspect Element element selector)
+        // Ctrl+Shift+C (Inspect Element selector)
         (e.ctrlKey && e.shiftKey && (e.key === "C" || e.key === "c")) ||
         // Ctrl+U (View Source)
         (e.ctrlKey && (e.key === "U" || e.key === "u"))
@@ -30,23 +32,9 @@ export default function DisableDevTools() {
     document.addEventListener("contextmenu", handleContextMenu);
     document.addEventListener("keydown", handleKeyDown);
 
-    // 3. Continuous Debugger Loop
-    // Halts execution automatically when Developer Tools are opened, locking the inspector.
-    const interval = setInterval(() => {
-      (function() {
-        const t1 = performance.now();
-        debugger;
-        const t2 = performance.now();
-        if (t2 - t1 > 100) {
-          // Detects pause at debugger
-        }
-      })();
-    }, 200);
-
     return () => {
       document.removeEventListener("contextmenu", handleContextMenu);
       document.removeEventListener("keydown", handleKeyDown);
-      clearInterval(interval);
     };
   }, []);
 

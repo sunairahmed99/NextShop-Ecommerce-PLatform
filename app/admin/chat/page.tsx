@@ -73,7 +73,8 @@ export default function AdminChatPage() {
     setMounted(true);
     
     if (!socket) {
-      socket = io();
+      const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || "";
+      socket = io(socketUrl);
 
       socket.on("connect", () => {
 

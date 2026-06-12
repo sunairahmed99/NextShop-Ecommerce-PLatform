@@ -1,18 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { BannerService } from "@/lib/Services/admin/BannerService";
-
-export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  try {
-    const { id } = await params;
-    const banner = await BannerService.getBannerById(id);
-    return NextResponse.json(banner, { status: 200 });
-  } catch (error: any) {
-    const status = error.message === "Banner not found" ? 404 : 500;
-    return NextResponse.json({ error: error.message }, { status });
-  }
-}
+import { AdminAuthrequire } from "@/lib/Services/Auth/AdminAuthrequire";
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const auth = AdminAuthrequire(req);
+  if (!auth.success) return auth.response!;
+
   try {
     const { id } = await params;
     const formData = await req.formData();
@@ -25,6 +18,9 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const auth = AdminAuthrequire(req);
+  if (!auth.success) return auth.response!;
+
   try {
     const { id } = await params;
     await BannerService.deleteBanner(id);

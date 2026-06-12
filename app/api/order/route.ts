@@ -1,21 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { verifyToken } from "@/lib/jwt";
 import { OrderService } from "@/lib/Services/admin/OrderService";
+import { Authrequire } from "@/lib/Services/Auth/Authrequire";
 
 export async function POST(req: NextRequest) {
+  const auth = Authrequire(req);
+  if (!auth.success) return auth.response!;
+
   try {
-    const token = req.cookies.get("token")?.value;
-    if (!token) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    const decoded: any = verifyToken(token);
-    if (!decoded) {
-      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
-    }
-
     const body = await req.json();
-    body.userId = decoded.id;
+    body.userId = auth.user.id;
 
     const order = await OrderService.createOrder(body);
 

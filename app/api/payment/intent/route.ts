@@ -1,7 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { PaymentService } from "@/lib/Services/PaymentService";
+import { Authrequire } from "@/lib/Services/Auth/Authrequire";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+  const auth = Authrequire(req);
+  if (!auth.success) return auth.response!;
+
   try {
     const { amount } = await req.json();
 

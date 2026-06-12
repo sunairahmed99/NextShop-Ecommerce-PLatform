@@ -1,8 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { OrderService } from "@/lib/Services/admin/OrderService";
+import { AdminAuthrequire } from "@/lib/Services/Auth/AdminAuthrequire";
 
 // GET single order
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const auth = AdminAuthrequire(req);
+  if (!auth.success) return auth.response!;
+
   try {
     const { id } = await params;
     const order = await OrderService.getOrderById(id);
@@ -14,6 +18,9 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 
 // PUT update order status
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const auth = AdminAuthrequire(req);
+  if (!auth.success) return auth.response!;
+
   try {
     const { id } = await params;
     const { status } = await req.json();
@@ -26,6 +33,9 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
 // DELETE order
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const auth = AdminAuthrequire(req);
+  if (!auth.success) return auth.response!;
+
   try {
     const { id } = await params;
     await OrderService.deleteOrder(id);
