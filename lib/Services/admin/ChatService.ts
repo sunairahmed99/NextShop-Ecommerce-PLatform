@@ -50,4 +50,14 @@ export class ChatService {
       ]
     }).sort({ timestamp: 1 });
   }
+
+  static async saveMessage(senderId: string, receiverId: string, message: string, isAdmin: boolean) {
+    await connectDB();
+    return await ChatMessage.create({
+      senderId,
+      receiverId,
+      message,
+      isAdmin
+    });
+  }
 }

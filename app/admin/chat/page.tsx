@@ -114,6 +114,41 @@ export default function AdminChatPage() {
     };
   }, [refetchConversations]);
 
+  // Polling fallback for Admin when socket is disconnected
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      if (socket && socket.connected) return;
+
+      // Poll conversations (threads)
+      try {
+        refetchConversations();
+      } catch (err) {}
+
+      // Poll messages for the selected user
+      if (selectedUser) {
+        try {
+          const { data } = await axios.get(`/api/admin/chat/messages/${selectedUser.id}`);
+          const msgArray = Array.isArray(data) ? data : (data?.messages || []);
+          const mapped = msgArray.map((m: any) => ({
+            id: m._id || Date.now() + Math.random(),
+            text: m.message || m.text || "",
+            sender: m.isAdmin ? "admin" : "user",
+            time: m.timestamp ? new Date(m.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Recently"
+          }));
+
+          setMessages(prev => {
+            if (JSON.stringify(prev) !== JSON.stringify(mapped)) {
+              return mapped;
+            }
+            return prev;
+          });
+        } catch (err) {}
+      }
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [selectedUser, refetchConversations]);
+
   // Separate effect for message listener to handle selectedUser changes without reconnecting
   useEffect(() => {
     if (!socket) return;
@@ -147,7 +182,7 @@ export default function AdminChatPage() {
     }
   }, [messages, selectedUser]);
 
-  const handleSend = (e: React.FormEvent) => {
+  const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim() || !selectedUser) return;
 
@@ -159,16 +194,26 @@ export default function AdminChatPage() {
     };
 
     setMessages([...messages, newMessage]);
-
-    // Emit to socket
-    socket.emit("sendMessage", {
-      senderId: "admin",
-      receiverId: selectedUser.id,
-      text: message,
-      isAdmin: true
-    });
-
+    const messageText = message;
     setMessage("");
+
+    // Emit to socket if connected
+    if (socket && socket.connected) {
+      socket.emit("sendMessage", {
+        senderId: "admin",
+        receiverId: selectedUser.id,
+        text: messageText,
+        isAdmin: true
+      });
+    }
+
+    // Save to DB via API
+    try {
+      await axios.post(`/api/admin/chat/messages/${selectedUser.id}`, { message: messageText });
+      refetchConversations(); // Update sidebar last message
+    } catch (err) {
+      // toast.error("Failed to save message");
+    }
   };
 
   if (!mounted) return null;

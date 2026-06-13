@@ -99,6 +99,40 @@ export default function ChatButton() {
     };
   }, [isLoggedIn, userId]);
 
+  // Polling fallback when socket is disconnected or not connected yet
+  useEffect(() => {
+    if (!isOpen || !isLoggedIn || userId === "guest") return;
+
+    const interval = setInterval(async () => {
+      if (socket && socket.connected) return;
+
+      try {
+        const { data } = await axios.get("/api/chat/history");
+        if (data?.success && data.messages) {
+          setChatHistory(prev => {
+            const mapped = [
+              {
+                id: 1,
+                text: "Hello! How can we help you today?",
+                sender: "admin",
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+              },
+              ...data.messages
+            ];
+            if (JSON.stringify(prev) !== JSON.stringify(mapped)) {
+              return mapped;
+            }
+            return prev;
+          });
+        }
+      } catch (err) {
+        // Silent error
+      }
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isOpen, isLoggedIn, userId]);
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -107,17 +141,12 @@ export default function ChatButton() {
 
   if (!mounted || !pathname || pathname.startsWith('/admin')) return null;
 
-  const handleSend = (e: React.FormEvent) => {
+  const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim()) return;
 
     if (userId === "guest" || !isLoggedIn) {
       toast.error("Please login to send messages");
-      return;
-    }
-
-    if (!socket) {
-      toast.error("Chat connection lost. Please refresh.");
       return;
     }
 
@@ -128,18 +157,26 @@ export default function ChatButton() {
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
 
-    // Emit to socket FIRST or simultaneously with UI update
-
-
-    socket.emit("sendMessage", {
-      senderId: userId,
-      receiverId: "admin",
-      text: message,
-      isAdmin: false
-    });
-
-    setChatHistory([...chatHistory, newMessage]);
+    setChatHistory(prev => [...prev, newMessage]);
+    const messageText = message;
     setMessage("");
+
+    // Emit to socket if connected
+    if (socket && socket.connected) {
+      socket.emit("sendMessage", {
+        senderId: userId,
+        receiverId: "admin",
+        text: messageText,
+        isAdmin: false
+      });
+    }
+
+    // Save to DB via API
+    try {
+      await axios.post("/api/chat/history", { message: messageText });
+    } catch (err) {
+      // toast.error("Failed to save message to history");
+    }
   };
 
   return (
